@@ -39,7 +39,8 @@ character_x_pos = (screen_width / 2) - (character_width / 2)
 character_y_pos = screen_height - character_height - stage_height
 
 # 캐릭터 이동 방향
-character_to_x = 0
+character_to_x_LEFT = 0
+character_to_x_RIGHT = 0
 
 # 캐릭터 이동 속도
 character_speed = 5
@@ -105,9 +106,9 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:  # 캐릭터를 왼쪽으로
-                character_to_x -= character_speed
+                character_to_x_LEFT -= character_speed
             elif event.key == pygame.K_RIGHT:  # 캐릭터를 왼쪽으로
-                character_to_x += character_speed
+                character_to_x_RIGHT += character_speed
             elif event.key == pygame.K_SPACE:  # 캐릭터를 왼쪽으로
                 weapon_x_pos = character_x_pos + \
                     (character_width / 2) - (weapon_width / 2)
@@ -115,11 +116,13 @@ while running:
                 weapons.append([weapon_x_pos, weapon_y_pos])
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:  # 캐릭터를 왼쪽으로
-                character_to_x = 0
+            if event.key == pygame.K_LEFT:  # 캐릭터를 왼쪽으로
+                character_to_x_LEFT = 0
+            elif event.key == pygame.K_RIGHT:
+                character_to_x_RIGHT = 0
 
     # 3. 게임 캐릭터 위치 정의
-    character_x_pos += character_to_x
+    character_x_pos += character_to_x_LEFT + character_to_x_RIGHT
 
     if character_x_pos < 0:
         character_x_pos = 0
